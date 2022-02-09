@@ -86,6 +86,7 @@ header {
     background-color: transparent;
     overflow: hidden;
     transition: color 0.4s ease-in-out;
+    -webkit-tap-highlight-color: transparent;
 
     &.no-mobile {
       @include mobile {
@@ -131,7 +132,7 @@ header {
 
       &:hover {
         p:first-child {
-          transform: translateX(15px);
+          transform: translateX(15.5px);
         }
       }
 
