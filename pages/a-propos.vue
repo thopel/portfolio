@@ -13,43 +13,6 @@
       </div>
       <img src="~/assets/medias/me.jpg" alt="Photo de Thomas" />
     </div>
-    <!-- <div>
-      <h1>À PROPOS</h1>
-      <img class="profile-picture" src="~/assets/medias/me.jpg" alt="photo de Thomas Pelfrene" />
-    </div>
-    <div id="apropos">
-      <p class="pres">
-        Hello, je suis Thomas - Intégrateur Web<br />
-        Je suis quelqu'un de très motivé à réussir dans ce domaine !
-      </p>
-      <p class="pres">
-        Toujours très inspiré, je suis aujourd'hui dans une formation qui me
-        permet de développer mon esprit créatif, par le code et le design.
-      </p>
-      <div class="cont">
-        <div>
-          <h2>outils</h2>
-          <div class="row wrap">
-            <div class="outil" v-for="(item, index) in techno" :key="index">
-              <img class="grid" :src="item.url" alt="" />
-              <p>{{ item.name }}</p>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h2>qualités</h2>
-          <div class="row wrap">
-            <p class="grid">Organisé</p>
-            <p class="grid">Determiné</p>
-            <p class="grid">Investi</p>
-            <p class="grid">Créatif</p>
-            <p class="grid">Curieux</p>
-            <p class="grid">Minutieux</p>
-            <p class="grid">Patient</p>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </main>
 </template>
 
@@ -160,7 +123,13 @@ main {
       background-color: $main-50;
       @include tablet {
         height: auto;
-        width: 80vw;
+        width: 50vw;
+        margin: 40px auto;
+      }
+
+      @include mobile {
+        height: auto;
+        width: 100%;
         margin: 40px auto;
       }
     }
