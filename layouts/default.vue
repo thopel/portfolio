@@ -30,7 +30,7 @@ export default {};
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: url("~/assets/medias/noise.jpeg") bottom center / cover no-repeat;
+  background: url("~/assets/medias/noise.webp") bottom center / cover no-repeat;
   width: 100vw;
   height: fit-content;
   min-height: 100vh;

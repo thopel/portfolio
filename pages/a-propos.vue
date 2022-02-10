@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <img src="~/assets/medias/me.jpg" alt="Photo de Thomas" />
+      <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
     </div>
   </main>
 </template>
@@ -84,7 +84,7 @@ main {
     height: fit-content;
   }
   @include mobile {
-    padding: 50px 1.8rem 0 1.8rem;
+    padding: 0 1.8rem 0 1.8rem;
   }
 
   .row {
@@ -131,6 +131,10 @@ main {
         height: auto;
         width: 100%;
         margin: 40px auto;
+        height: 300px; 
+        object-fit: cover;
+        object-position: left 20%;
+        margin-top: 0;
       }
     }
   }
