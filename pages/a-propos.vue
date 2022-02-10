@@ -107,7 +107,7 @@ main {
         font-family: $Readex-Regular;
         overflow: scroll;
         max-height: 40vh;
-        margin-bottom: 80px;
+        margin-bottom: 3vw;
 
         @include tablet {
           max-height: fit-content;
