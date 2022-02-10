@@ -119,7 +119,7 @@ main {
       }
     }
     > img {
-      height: 75vh;
+      height: 70vh;
       background-color: $main-50;
       @include tablet {
         height: auto;
