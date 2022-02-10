@@ -2,9 +2,9 @@
   <main v-if="Loaded && technoLoaded">
     <div class="top">
       <h1>{{ projet.name }}</h1>
-      <h2>{{ projet.annee }}</h2>
+      <!-- <h2>{{ projet.annee }}</h2> -->
     </div>
-    <h3>{{ projet.type }}</h3>
+    <h3>{{ projet.annee }} ~ {{ projet.type }}</h3>
     <div v-if="projet.collab.length > 0" class="collab">
       <p>Collaborateur.trice(s):</p>
       <a
@@ -25,9 +25,7 @@
         </p>
       </div>
     </div>
-    <p class="descr">
-      {{ projet.description }}
-    </p>
+    <p class="descr" v-html="projet.description"></p>
     <a v-if="projet.lien != ''" class="link" :href="projet.lien"
       >› se rendre sur le projet</a
     >
