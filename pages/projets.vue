@@ -1,14 +1,20 @@
 <template>
   <main>
-    <div class="wrapper">
-      <nuxt-link
-        v-for="(projet, index) in projets"
-        :key="index"
-        class="wrapper__card"
-        :to="projet.name"
-      >
-        <img :src="projet.banner" />
-      </nuxt-link>
+    <div v-if="!loaded" class="loader_wrapper">
+      <div class="loader"></div>
+      <p>Chargement</p>
+    </div>
+    <div v-if="loaded">
+      <div class="wrapper">
+        <nuxt-link
+          v-for="(projet, index) in projets"
+          :key="index"
+          class="wrapper__card"
+          :to="projet.name"
+        >
+          <img :src="projet.banner" />
+        </nuxt-link>
+      </div>
     </div>
   </main>
 </template>
@@ -34,6 +40,7 @@ export default {
   data() {
     return {
       projets: [],
+      loaded: false,
     };
   },
   methods: {
@@ -45,6 +52,7 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.projets.push(doc.data());
+            this.loaded = true;
           });
         })
         .catch((error) => {
@@ -68,7 +76,6 @@ main {
 
   @include tablet {
     align-items: flex-start;
-    padding-top: 50px;
   }
 
   .wrapper {
@@ -93,7 +100,7 @@ main {
     &__card {
       width: 100%;
       height: auto;
-      transition: 0.35s all ease-out;
+      transition: 0.2s all ease-out;
       position: relative;
       background-color: $main-50;
 
@@ -119,7 +126,7 @@ main {
       &:before {
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid $main;
+        border-top: 10px solid $purple;
         position: absolute;
         content: "";
         bottom: 10px;
@@ -128,12 +135,12 @@ main {
         height: 0;
         z-index: -1;
         transform: translateY(10px);
-        transition: 0.35s all ease-out;
+        transition: 0.2s all ease-out;
       }
 
       &:after {
         border-left: 10px solid transparent;
-        border-right: 10px solid $main;
+        border-right: 10px solid $purple;
         border-top: 10px solid transparent;
         position: absolute;
         content: "";
@@ -141,8 +148,15 @@ main {
         right: calc(100% - 10px);
         width: 0;
         height: 100%;
-        transition: 0.35s all ease-out;
+        transition: 0.2s all ease-out;
         z-index: -1;
+      }
+
+      &:nth-child(odd):before {
+        border-top: 10px solid $yellow;
+      }
+      &:nth-child(odd):after {
+        border-right: 10px solid $yellow;
       }
     }
   }

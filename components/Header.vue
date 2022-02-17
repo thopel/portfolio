@@ -1,9 +1,6 @@
 <template>
   <header>
-    <nuxt-link class="main-link" to="/"
-      ><p>Thomas</p>
-      <p>Pelfrene</p></nuxt-link
-    >
+    <nuxt-link class="no-mobile" to="/">home</nuxt-link>
     <nuxt-link class="no-mobile" to="/projets">projets</nuxt-link>
     <nuxt-link class="no-mobile" to="/logos">logotypes</nuxt-link>
     <nuxt-link class="no-mobile" to="/a-propos">à propos</nuxt-link>
@@ -15,6 +12,7 @@
     </div>
     <div id="content-burger">
       <div @click="menuAppear">
+        <nuxt-link to="/">home</nuxt-link>
         <nuxt-link to="/projets">projets</nuxt-link>
         <nuxt-link to="/logos">logotypes</nuxt-link>
         <nuxt-link to="/a-propos">à propos</nuxt-link>
@@ -36,26 +34,26 @@ export default {
         const gsap = this.$gsap;
         gsap.to("#content-burger", { xPercent: -100, duration: 0.7 });
         gsap.to("#menu-burger span", {
-          backgroundColor: "#dc2f02",
+          backgroundColor: "#131313",
           duration: 0.7,
         });
         gsap.to("#top", { y: 11, rotate: 45, duration: 0.7 });
         gsap.to("#bot", { y: -11, rotate: -45, duration: 0.7 });
         gsap.to("#center", { width: 0, duration: 0.7 });
+        document.documentElement.lastChild.style.overflowY = "hidden";
         this.menu = "open";
-        document.documentElement.style.overflow = "hidden";
       } else {
         const gsap = this.$gsap;
         gsap.to("#content-burger", { xPercent: 100, duration: 0.7 });
         gsap.to("#menu-burger span", {
-          backgroundColor: "#dc2f02",
+          backgroundColor: "#131313",
           duration: 0.7,
         });
         gsap.to("#top", { y: 0, rotate: 0, duration: 0.7 });
         gsap.to("#bot", { y: 0, rotate: 0, duration: 0.7 });
         gsap.to("#center", { width: 35, duration: 0.7 });
+        document.documentElement.lastChild.style.overflowY = "scroll";
         this.menu = "close";
-        document.documentElement.style.overflow = "scroll";
       }
     },
   },
@@ -74,19 +72,21 @@ header {
   padding-bottom: 20px;
   padding-top: 20px;
   z-index: 10;
+  opacity: 0;
 
   a {
     font-size: 2rem;
     font-family: $Readex-Regular;
     z-index: 1;
     position: relative;
-    padding: 6px;
     outline: none;
-    border: none;
-    background-color: transparent;
-    overflow: hidden;
-    transition: color 0.4s ease-in-out;
-    -webkit-tap-highlight-color: transparent;
+
+    &:hover,
+    &.nuxt-link-exact-active {
+      &:before {
+        transform: scale(1);
+      }
+    }
 
     &.no-mobile {
       @include mobile {
@@ -94,58 +94,16 @@ header {
       }
     }
 
-    &::before {
+    &:before {
       content: "";
-      z-index: -1;
       position: absolute;
-      top: 100%;
-      right: 100%;
-      width: 1em;
-      height: 1em;
-      border-radius: 50%;
-      background-color: $main;
-      transform-origin: center;
-      transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
-      transition: transform 0.45s ease-in-out;
-    }
-
-    &.nuxt-link-exact-active:not(.main-link) {
-      cursor: pointer;
-      color: $secondary;
-      background-color: $main;
-    }
-
-    &:hover {
-      cursor: pointer;
-      color: $secondary;
-    }
-
-    &:not(.main-link) {
-      &:hover::before {
-        transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
-      }
-    }
-
-    &:first-child {
-      display: flex;
-      flex-direction: column;
-
-      &:hover {
-        p:first-child {
-          transform: translateX(15.5px);
-        }
-      }
-
-      p {
-        text-transform: uppercase;
-        transition: 0.4s all ease-in-out;
-        background-color: $main;
-        line-height: 90%;
-        padding: 5px;
-        width: fit-content;
-        color: $secondary;
-        font-family: $Readex-Medium;
-      }
+      bottom: 2px;
+      left: -2rem;
+      width: 2rem;
+      background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+      height: 2rem;
+      transform: scale(0);
+      transition: transform 0.2s ease-in-out;
     }
   }
   #menu-burger {
@@ -172,7 +130,8 @@ header {
   #content-burger {
     height: 100vh;
     width: 100vw;
-    background-color: $secondary;
+    backdrop-filter: blur(8px);
+    background: $secondary-50;
     position: absolute;
     display: none;
     top: 0;
@@ -182,7 +141,6 @@ header {
     overflow: hidden;
   }
   #content-burger > div {
-    height: fit-content;
     width: 100%;
     display: flex;
     gap: 20px;
@@ -203,12 +161,22 @@ header {
     font-size: 3rem;
     font-family: $Readex-SemiBold;
     text-align: right;
-    width: 100%;
+    width: fit-content;
 
     &.nuxt-link-exact-active {
       cursor: pointer;
-      color: $secondary;
-      background-color: $main;
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: -3.7rem;
+        width: 3rem;
+        background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+        height: 3rem;
+        transition: transform 0.2s ease-in-out;
+      }
     }
   }
   @include mobile {

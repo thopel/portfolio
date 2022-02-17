@@ -1,8 +1,18 @@
 <template>
-  <div id="default">
-    <Header :style="$route.name == 'index' ? 'position: fixed;' : ''" />
+  <div id="default" :class="$route.name == 'logos' ? 'bg-corner' : 'bg-base'">
+    <Header
+      v-gsap.to="{
+        delay: 2.5,
+        opacity: 1,
+      }"
+      :style="$route.name == 'index' ? 'position: fixed;' : ''"
+    />
     <Nuxt />
     <Footer
+      v-gsap.to="{
+        delay: 2.5,
+        opacity: 1,
+      }"
       :style="$route.name == 'index' ? 'position: fixed; bottom: 0;' : ''"
       v-if="$route.name !== 'logos'"
     />
@@ -25,15 +35,60 @@ export default {};
   box-sizing: border-box;
 }
 
+.loader_wrapper {
+  width: 100%;
+  @include flexbox(column, center, center);
+
+  .loader {
+    background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+    width: 15vw;
+    height: 15vw;
+    animation: turn 5s linear infinite;
+
+    @include tablet {
+      width: 30vw;
+      height: 30vw;
+    }
+  }
+
+  p {
+    margin-top: 2vw;
+    font-family: $Eugusto;
+    font-size: 4rem;
+  }
+}
+
+@keyframes turn {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #default {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: url("~/assets/medias/noise.webp") bottom center / cover no-repeat;
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
+
+  &.bg-corner {
+    background: url("~/assets/medias/noise-logotypes.webp") center / cover
+      no-repeat;
+  }
+
+  &.bg-base {
+    background: url("~/assets/medias/noise-base.webp") top center / cover
+      no-repeat;
+    @include mobile() {
+      background: url("~/assets/medias/noise-base.webp") top center / 260%
+        no-repeat;
+    }
+  }
 }
 
 html {

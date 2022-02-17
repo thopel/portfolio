@@ -1,7 +1,7 @@
 <template>
   <footer>
     <p @click="copyMail">
-      tpelfrene@gmail.com<sup id="copied">email copié</sup>
+      tpelfrene@gmail.com<sup id="copied">copié</sup>
     </p>
     <div v-if="$route.name == 'pas-affiché'"> // pas affiché pour le moment
       <p>Performances:</p>
@@ -77,6 +77,7 @@ footer {
   color: $main;
   padding-bottom: 20px;
   padding-top: 40px;
+  opacity: 0;
 
   @include tablet {
     align-items: flex-end;
@@ -124,10 +125,11 @@ footer {
     height: fit-content;
 
     sup {
-      font-size: 1.6rem;
-      font-family: $Readex-Medium;
+      font-size: 1.5rem;
+      font-family: $Readex-Regular;
+      letter-spacing: .2rem;
       position: absolute;
-      padding: 2px;
+      padding: 5px;
       width: fit-content;
       color: $secondary;
       background-color: $main;

@@ -1,43 +1,52 @@
 <template>
-  <main v-if="Loaded && technoLoaded">
-    <div class="top">
-      <h1>{{ projet.name }}</h1>
-      <!-- <h2>{{ projet.annee }}</h2> -->
+  <main>
+    <div v-if="!loaded || !technoLoaded" class="loader_wrapper">
+      <div class="loader"></div>
+      <p>Chargement</p>
     </div>
-    <h3>{{ projet.annee }} ~ {{ projet.type }}</h3>
-    <div v-if="projet.collab.length > 0" class="collab">
-      <p>Collaborateur.trice(s):</p>
-      <a
-        v-for="(pers, index) in projet.collab"
-        :key="index"
-        target="_blank"
-        :href="'https://www.linkedin.com/in/' + pers.linkedin"
-        >{{ pers.name }}</a
-      >
-    </div>
-    <div class="tech">
-      <div class="logo-app" v-for="(app, index) in projet.techno" :key="index">
-        <img
-          :src="techno.find((elem) => elem.id == projet.techno[index]).url"
-        />
-        <p>
-          {{ techno.find((elem) => elem.id == projet.techno[index]).name }}
-        </p>
+    <div v-if="loaded && technoLoaded">
+      <div class="top">
+        <h1>{{ projet.name }}</h1>
       </div>
-    </div>
-    <p class="descr" v-html="projet.description"></p>
-    <a v-if="projet.lien != ''" class="link" :href="projet.lien"
-      >› se rendre sur le projet</a
-    >
+      <h3>{{ projet.annee }} ~ {{ projet.type }}</h3>
+      <div v-if="projet.collab.length > 0" class="collab">
+        <p>Collaborateur.trice(s):</p>
+        <a
+          v-for="(pers, index) in projet.collab"
+          :key="index"
+          target="_blank"
+          :href="'https://www.linkedin.com/in/' + pers.linkedin"
+          >{{ pers.name }}</a
+        >
+      </div>
+      <div class="tech">
+        <div
+          class="logo-app"
+          v-for="(app, index) in projet.techno"
+          :key="index"
+        >
+          <img
+            :src="techno.find((elem) => elem.id == projet.techno[index]).url"
+          />
+          <p>
+            {{ techno.find((elem) => elem.id == projet.techno[index]).name }}
+          </p>
+        </div>
+      </div>
+      <p class="descr" v-html="projet.description"></p>
+      <a v-if="projet.lien != ''" class="link" :href="projet.lien"
+        >› se rendre sur le projet</a
+      >
 
-    <div class="wrapper">
-      <img
-        v-for="(img, index) in projet.images"
-        :key="index"
-        class="picture"
-        :style="'width:' + (img.width - 0.25) + '%'"
-        :src="img.url"
-      />
+      <div class="wrapper">
+        <img
+          v-for="(img, index) in projet.images"
+          :key="index"
+          class="picture"
+          :style="'width:' + (img.width - 0.25) + '%'"
+          :src="img.url"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -62,7 +71,7 @@ export default {
     return {
       projet: {},
       techno: [],
-      Loaded: false,
+      loaded: false,
       technoLoaded: false,
       indexSlider: 0,
     };
@@ -85,7 +94,7 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.projet = doc.data();
-            this.Loaded = true;
+            this.loaded = true;
           });
         })
         .catch((error) => {
@@ -134,7 +143,7 @@ main {
     font-size: 6rem;
     letter-spacing: 5px;
     text-transform: uppercase;
-    font-family: $Readex-Medium;
+    font-family: $Eugusto;
     width: 100%;
 
     @include mobile {
@@ -144,10 +153,10 @@ main {
 
   h2,
   h3 {
-    font-family: $Amperzand;
+    font-family: $Readex-Regular;
     font-weight: normal;
     text-transform: capitalize;
-    font-size: 5rem;
+    font-size: 4rem;
 
     @include mobile {
       font-size: 2.5rem;

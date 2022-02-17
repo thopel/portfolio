@@ -2,8 +2,9 @@
   <main>
     <div class="row">
       <div class="description">
+        <p class="subtitle">Qui suis-je ?</p>
         <p v-html="settings.description"></p>
-        <p>Mes compétences:</p>
+        <p class="subtitle">Mes competences</p>
         <div class="row wrap">
           <div class="outil" v-for="(item, index) in techno" :key="index">
             <img class="grid" :src="item.url" alt="" />
@@ -97,6 +98,7 @@ main {
       width: 100%;
       color: $main;
       padding-right: 40px;
+      @include flexbox(column, flex-start, flex-start, 2vw);
 
       @include tablet {
         padding-right: 0;
@@ -107,10 +109,20 @@ main {
         font-family: $Readex-Regular;
         overflow: scroll;
         max-height: 40vh;
-        margin-bottom: 3vw;
+
+        &.subtitle {
+          font-family: $Eugusto;
+          font-size: 4rem;
+          margin-top: 1vw;
+
+          @include tablet {
+            margin-top: 5vw;
+          }
+        }
 
         @include tablet {
           max-height: fit-content;
+          @include flexbox(column, flex-start, flex-start, 5vw);
         }
 
         @include mobile {
@@ -121,6 +133,7 @@ main {
     > img {
       height: 70vh;
       background-color: $main-50;
+
       @include tablet {
         height: auto;
         width: 50vw;
@@ -131,9 +144,9 @@ main {
         height: auto;
         width: 100%;
         margin: 40px auto;
-        height: 300px; 
+        height: 300px;
         object-fit: cover;
-        object-position: left 20%;
+        object-position: left 15%;
         margin-top: 0;
       }
     }
@@ -145,9 +158,11 @@ main {
     grid-column-gap: 0;
     grid-row-gap: 50px;
     width: 90%;
+    margin-top: 3vw;
 
     @include tablet {
       width: 100%;
+      margin-top: 10vw;
       grid-template-columns: repeat(4, 1fr);
     }
     @include mobile {

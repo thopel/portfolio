@@ -2,7 +2,7 @@
   <main id="all-logo">
     <div class="container">
       <div class="card-logo">
-        <h1>Decouvrez mes realisations graphiques</h1>
+        <h1>Mes realisations graphiques</h1>
         <p>Scroll</p>
         <!-- <img src="~/assets/medias/fleche-down.png" alt="" class="go-down" /> -->
       </div>
@@ -123,6 +123,7 @@ export default {
       @include tablet {
         h1 {
           text-align: center;
+          padding-bottom: 30vh;
         }
       }
 
@@ -140,7 +141,7 @@ export default {
 
         > p {
           font-size: 4rem;
-          font-family: $Amperzand;
+          font-family: $Eugusto;
           color: $main;
           position: absolute;
           left: 20px;
@@ -148,6 +149,13 @@ export default {
 
           @include tablet {
             bottom: 80px;
+          }
+        }
+
+        a {
+          @include mobile {
+            padding-bottom: 30vh;
+            font-size: 5rem;
           }
         }
       }
@@ -181,16 +189,20 @@ export default {
         transition: 0.5s;
       }
       .back {
-        font-size: 5rem;
+        font-size: 7rem;
         color: $main;
-        font-family: $Amperzand;
+        font-family: $Eugusto;
       }
     }
     h1 {
       color: $main;
       font-weight: normal;
-      font-size: 5rem;
-      font-family: $Amperzand;
+      font-size: 7rem;
+      font-family: $Eugusto;
+
+      @include mobile {
+        font-size: 5rem;
+      }
     }
   }
   .go-down {

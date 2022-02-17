@@ -1,36 +1,11 @@
 // ! Main Colors Variants
-$main: #dc2f02;
-$main-50: #dc2e028e;
+$main: #131313;
+$main-50: #1313138e;
 
 // ? Secondary Colors Variants
-$secondary: #030a1f;
-$secondary-50: #030a1f9c;
+$secondary: #E4E4E4;
+$secondary-50: #e4e4e42a;
 
 // * Others Colors Variants
-// $pink: #d13063;
-// $navy: #0c5fa7;
-// $blue: #4ec2f0;
-
-.light-mode {
-  // ! Main Colors Variants
-  --main: #efede9;
-  --main-50: rgba(239, 237, 233, 0.5);
-  --main-75: rgba(239, 237, 233, 0.75);
-
-  // ? Secondary Colors Variants
-  --secondary: #1d1b1b;
-  --secondary-50: rgba(29, 27, 27, 0.5);
-  --secondary-75: rgba(29, 27, 27, 0.75);
-}
-
-.dark-mode {
-  // ! Main Colors Variants
-  --main: #1d1b1b;
-  --main-50: rgba(29, 27, 27, 0.5);
-  --main-75: rgba(29, 27, 27, 0.75);
-
-  // ? Secondary Colors Variants
-  --secondary: #efede9;
-  --secondary-50: rgba(239, 237, 233, 0.5);
-  --secondary-75: rgba(239, 237, 233, 0.75);
-}
+$purple: #D5B3FF;
+$yellow: #FBD960;
