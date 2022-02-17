@@ -112,6 +112,7 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  position: relative;
 }
 
 ul,

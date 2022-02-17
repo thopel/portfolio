@@ -139,12 +139,39 @@ main {
   width: 100%;
   height: fit-content;
 
+  a {
+    &:after {
+      content: "";
+      height: 2px;
+      background-color: $main;
+      width: 0;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      transition: 0.3s ease-in-out;
+    }
+    &:hover:after {
+      width: 100%;
+    }
+  }
+
   h1 {
     font-size: 6rem;
     letter-spacing: 5px;
     text-transform: uppercase;
     font-family: $Eugusto;
-    width: 100%;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -8rem;
+      width: 6rem;
+      background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+      height: 6rem;
+      transition: transform 0.2s ease-in-out;
+    }
 
     @include mobile {
       font-size: 2.5rem;

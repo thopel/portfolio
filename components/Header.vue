@@ -81,7 +81,19 @@ header {
     position: relative;
     outline: none;
 
-    &:hover,
+    &:after {
+      content: "";
+      height: 2px;
+      background-color: $main;
+      width: 0;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      transition: 0.3s ease-in-out;
+    }
+    &:hover:after {
+      width: 100%;
+    }
     &.nuxt-link-exact-active {
       &:before {
         transform: scale(1);

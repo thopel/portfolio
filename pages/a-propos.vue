@@ -12,7 +12,10 @@
           </div>
         </div>
       </div>
-      <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
+      <div class="img">
+        <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
+        <p>Make some noise</p>
+      </div>
     </div>
   </main>
 </template>
@@ -130,23 +133,76 @@ main {
         }
       }
     }
-    > img {
+    .img {
       height: 70vh;
-      background-color: $main-50;
+      position: relative;
+
+      &:hover img {
+        opacity: 0.2;
+      }
+
+      p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        color: $dark-purple;
+        width: 100%;
+        text-align: center;
+        @include font(4rem, $Eugusto, null, 1);
+      }
+
+      img {
+        width: auto;
+        height: 100%;
+        position: relative;
+        opacity: 1;
+        z-index: 2;
+        transition: 1s all ease-in-out;
+        border-radius: 10px;
+
+        @include tablet {
+          object-fit: cover;
+          object-position: left 15%;
+          width: 100%;
+          height: 40vh;
+        }
+
+        @include mobile {
+          object-fit: cover;
+          object-position: left 20%;
+        }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: -4vw;
+        right: -4vw;
+        width: 8vw;
+        z-index: 3;
+        background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+        height: 8vw;
+        animation: turn 20s linear infinite;
+      }
 
       @include tablet {
-        height: auto;
-        width: 50vw;
-        margin: 40px auto;
+        width: 100%;
+        height: fit-content;
+
+        &:before {
+          bottom: -12vw;
+          right: -12vw;
+          width: 24vw;
+          height: 24vw;
+        }
       }
 
       @include mobile {
-        height: auto;
         width: 100%;
         margin: 40px auto;
-        height: 300px;
-        object-fit: cover;
-        object-position: left 15%;
+        height: fit-content;
         margin-top: 0;
       }
     }
