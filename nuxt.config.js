@@ -7,8 +7,8 @@ export default {
     },
     meta: [
       { charset: "utf-8" },
-      {name: "apple-mobile-web-app-capable", content: 'yes'},
-      {name: "mobile-web-app-capable", content: 'yes'},
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
@@ -71,5 +71,23 @@ export default {
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    loaders: {
+      vue: {
+        transformAssetUrls: {
+          audio: "src",
+        },
+      },
+    },
+
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+        },
+      });
+    },
+  },
 };

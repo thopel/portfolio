@@ -13,7 +13,11 @@
         </div>
       </div>
       <div class="img">
-        <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
+        <img
+          @click="playSound($event)"
+          src="~/assets/medias/me.webp"
+          alt="Photo de Thomas"
+        />
         <p>Make some noise</p>
       </div>
     </div>
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+const sound = require("~/assets/medias/make-some-noise.mp3").default;
 export default {
   head: {
     titleTemplate: "À Propos - %s",
@@ -40,6 +45,7 @@ export default {
     return {
       techno: [],
       settings: {},
+      sound,
     };
   },
   methods: {
@@ -68,6 +74,12 @@ export default {
         .catch((error) => {
           console.error("Error getting documents: ", error);
         });
+    },
+    playSound(element) {
+      if (element.target.style.opacity < 0.5) {
+        var audio = new Audio(this.sound);
+        audio.play();
+      }
     },
   },
   beforeMount() {
@@ -159,7 +171,7 @@ main {
         position: relative;
         opacity: 1;
         z-index: 2;
-        transition: 1s all ease-in-out;
+        transition: 1.7s all ease-in-out;
         border-radius: 10px;
 
         @include tablet {
