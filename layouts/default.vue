@@ -35,6 +35,10 @@ export default {};
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar{
+  display: none;
+}
+
 .loader_wrapper {
   width: 100%;
   @include flexbox(column, center, center);

@@ -175,6 +175,15 @@ main {
 
     @include mobile {
       font-size: 2.5rem;
+
+      &:before {
+        top: 0;
+        right: -3rem;
+        width: 2.5rem;
+        background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+        height: 2.5rem;
+        transition: transform 0.2s ease-in-out;
+      }
     }
   }
 

@@ -13,12 +13,8 @@
         </div>
       </div>
       <div class="img">
-        <img
-          @click="playSound($event)"
-          src="~/assets/medias/me.webp"
-          alt="Photo de Thomas"
-        />
-        <p>Make some noise</p>
+        <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
+        <p @click="playSound()">click to<br />make some noise</p>
       </div>
     </div>
   </main>
@@ -75,11 +71,9 @@ export default {
           console.error("Error getting documents: ", error);
         });
     },
-    playSound(element) {
-      if (element.target.style.opacity < 0.5) {
-        var audio = new Audio(this.sound);
-        audio.play();
-      }
+    playSound() {
+      var audio = new Audio(this.sound);
+      audio.play();
     },
   },
   beforeMount() {
@@ -151,10 +145,17 @@ main {
 
       &:hover img {
         opacity: 0.2;
+        z-index: 1;
+      }
+
+      &:hover p {
+        z-index: 2;
+        opacity: 1;
       }
 
       p {
         position: absolute;
+        cursor: pointer;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -162,8 +163,10 @@ main {
         color: $dark-purple;
         width: 100%;
         text-align: center;
-        @include font(4rem, $Eugusto, null, 1);
-      }
+        @include font(3.5rem, $Eugusto, null, 1);
+        transition: 1.7s all ease-in-out;
+        opacity: 0;
+        }
 
       img {
         width: auto;
