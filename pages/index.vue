@@ -30,14 +30,14 @@
         >
           <div>
             <a
-              title="site de l'école que je fréquente"
+              title="website of the school I attend"
               rel="noopener noreferer nofollow"
               :href="settings.schoolLink"
               >{{ settings.schoolName }}</a
             >
             <span>~</span>
             <a
-              title="site de l'entreprise où je travaille"
+              title="website of the company where I work"
               rel="noopener noreferer nofollow"
               :href="settings.companyLink"
               >{{ settings.companyName }}</a

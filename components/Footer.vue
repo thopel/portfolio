@@ -1,20 +1,10 @@
 <template>
   <footer>
+    <a :href="this.settings.githubLink"><img src="~/assets/medias/github.png" alt="my github link"></a>
+    <span></span>
     <p class="mail" @click="copyMail">
       {{mail}}<sup id="copied">copié !</sup>
     </p>
-    <div v-if="$route.name == 'pas-affiché'">
-      // pas affiché pour le moment
-      <p>Performances:</p>
-      <div>
-        <a
-          v-for="(item, index) in settings.performances"
-          :key="index"
-          :href="item.link"
-          >{{ item.name }}: {{ item.value }}</a
-        >
-      </div>
-    </div>
   </footer>
 </template>
 
@@ -59,7 +49,7 @@ export default {
           break;
 
         case 4:
-          document.getElementById("copied").innerText = "rererecopié !";
+          document.getElementById("copied").innerText = "rererecopied !";
           break;
 
         case 5:
@@ -135,7 +125,9 @@ export default {
 <style lang="scss" scoped>
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
   position: relative;
   width: 100%;
   bottom: 0;
@@ -144,6 +136,12 @@ footer {
   padding-top: 40px;
   opacity: 0;
   transition: opacity .5s ease-in-out;
+
+  img {
+    width: 25px;
+    height: 25px;
+    filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg) brightness(114%) contrast(88%);
+  }
 
   @include tablet {
     align-items: flex-end;
@@ -181,6 +179,12 @@ footer {
     position: relative;
     cursor: pointer;
     height: fit-content;
+  }
+
+  span {
+    width: 2px;
+    background-color: #F0F0F0;
+    height: 25px;
   }
 
   p {

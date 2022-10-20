@@ -11,7 +11,7 @@
         :key="indexSection"
       >
         <nuxt-link
-          v-for="(projet, index) in section"
+        v-for="(projet, index) in section"
           :to="projet.name"
           :key="index"
           class="card"
@@ -32,7 +32,7 @@
 
 export default {
   head: {
-    titleTemplate: "Projects - %s",
+    titleTemplate: "All projects - %s",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -60,9 +60,8 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.projets.push(doc.data());
+            this.loaded = true;
           });
-          this.loaded = true;
-          console.log(this.chunkArray(this.projets, 6));
         })
         .catch((error) => {
           console.error("Error getting documents: ", error);
@@ -89,10 +88,10 @@ export default {
 
 <style lang="scss" scoped>
 
+
 .loader_wrapper {
   transform: translateY(-30vh);
 }
-
 
 main {
   width: 100%;
@@ -102,7 +101,6 @@ main {
   padding: 0 6.4rem;
   align-items: center;
   justify-content: center;
-
   & > div {
     flex-direction: column;
     align-items: center;
@@ -110,7 +108,6 @@ main {
     width: 100%;
     height: 100%;
   }
-
   @include mobile {
     padding: 0 3.9rem;
   }
@@ -131,27 +128,21 @@ main {
     height: 100%;
     left: -6.4rem;
 
-    @include mobile {
-      display: none;
+    @include mobile {      display: none;
     }
-
   }
-
   &:nth-of-type(odd):before {
     background: url('~/assets/medias/line-4.svg') center/100% 100% no-repeat;
   }
-
-    &:nth-of-type(even):before {
+  &:nth-of-type(even):before {
     background: url('~/assets/medias/line-5.svg') center/100% 100% no-repeat;
   }
-
   @include mobile {
     height: fit-content;
     gap: 10vw;
     flex-direction: column;
     padding-bottom: 11vw;
   }
-
   &::-webkit-scrollbar {
     display: none;
   }
@@ -182,4 +173,5 @@ main {
     }
   }
 }
+
 </style>

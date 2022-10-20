@@ -141,8 +141,8 @@ main {
   display: flex;
   flex-direction: column;
   padding-top: 3.472vw;
-  padding-bottom: 8vw;
   width: 100%;
+  padding-bottom: 8vw;
   height: fit-content;
 
   @include mobile {
@@ -156,7 +156,7 @@ main {
       @include flexbox(column, flex-start, flex-start);
       height: fit-content;
     }
-
+    
     @include flexbox(row, space-between, flex-start, 10%);
 
     .infos {
@@ -361,7 +361,6 @@ main {
       text-align: center;
     }
   }
-
   .back {
     position: fixed;
     bottom: -5vw;
@@ -401,7 +400,7 @@ main {
   .wrapper {
     @include flexbox(row, space-between, flex-start, 0.5%);
     flex-wrap: wrap;
-
+    
 
     @include mobile {
       gap: 11vw;
