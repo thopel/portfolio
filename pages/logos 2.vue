@@ -2,7 +2,7 @@
   <main>
     <div v-if="!loaded" class="loader_wrapper">
       <div class="loader"></div>
-      <p>Chargement</p>
+      <p>Loading...</p>
     </div>
     <div v-if="loaded" class="wrapper">
       <nuxt-link :to="logo.name" v-for="(logo, index) in logos"

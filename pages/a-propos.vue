@@ -1,30 +1,30 @@
 <template>
   <main>
+    <img class="line" src="~/assets/medias/line-6.svg" alt="" />
     <div class="row">
       <div class="description">
-        <p class="subtitle">Qui suis-je ?</p>
+        <h2 class="subtitle">About me</h2>
         <p v-html="settings.description"></p>
-        <p class="subtitle">Mes competences</p>
-        <div class="row wrap">
-          <div class="outil" v-for="(item, index) in techno" :key="index">
-            <img class="grid" :src="item.url" alt="" />
+        <h3 class="subtitle">Skills</h3>
+        <ul class="row wrap">
+          <li class="outil" v-for="(item, index) in techno" :key="index">
+            <img class="grid" :src="item.url" :alt="'logo ' + item.name" />
             <p>{{ item.name }}</p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
       <div class="img">
         <img src="~/assets/medias/me.webp" alt="Photo de Thomas" />
-        <p @click="playSound()">click to<br />make some noise</p>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-const sound = require("~/assets/medias/make-some-noise.mp3").default;
+// const sound = require("~/assets/medias/make-some-noise.mp3").default;
 export default {
   head: {
-    titleTemplate: "À Propos - %s",
+    titleTemplate: "About - %s",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -32,7 +32,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Découvrez qui je suis, quelle technologies je maîtrise. Apprenez-en plus sur mes compétences en visitant l'intégralité de mon portfolio !",
+          "Find out who I am, what technologies I master. Learn more about my skills by visiting my entire portfolio!",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -41,13 +41,14 @@ export default {
     return {
       techno: [],
       settings: {},
-      sound,
+      // sound,
     };
   },
   methods: {
     getProjet() {
       this.$fire.firestore
         .collection("technologies")
+        .orderBy("order", "asc")
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
@@ -71,10 +72,10 @@ export default {
           console.error("Error getting documents: ", error);
         });
     },
-    playSound() {
-      var audio = new Audio(this.sound);
-      audio.play();
-    },
+    // playSound() {
+    //   var audio = new Audio(this.sound);
+    //   audio.play();
+    // },
   },
   beforeMount() {
     this.getProjet();
@@ -97,8 +98,30 @@ main {
     padding: 0 1.8rem 0 1.8rem;
   }
 
+  h3 {
+    margin-top: 1.5vw;
+
+    @include mobile {
+      margin-top: 12vw;
+    }
+  }
+
+  .line {
+    position: absolute;
+    top: 200px;
+    right: 0;
+    width: 100vw;
+
+    @include mobile {
+      top: calc(151.2px + 45.3vh);
+      left: 0;
+      width: 300vw;
+    }
+  }
+
   .row {
     display: flex;
+    justify-content: space-between;
     @include tablet {
       flex-direction: column-reverse;
     }
@@ -107,26 +130,36 @@ main {
       width: 100%;
       color: $main;
       padding-right: 40px;
+      z-index: 5;
       @include flexbox(column, flex-start, flex-start, 2vw);
 
       @include tablet {
         padding-right: 0;
+
+        h2 {
+          margin-bottom: 7vw;
+        }
       }
 
       > p {
-        font-size: 3rem;
+        font-size: 2rem;
         font-family: $Readex-Regular;
         overflow: scroll;
-        max-height: 40vh;
+        max-width: 60%;
 
-        &.subtitle {
-          font-family: $Eugusto;
-          font-size: 4rem;
-          margin-top: 1vw;
+        @include tablet {
+          max-width: 100%;
+        }
+      }
 
-          @include tablet {
-            margin-top: 5vw;
-          }
+      .subtitle {
+        font-family: $Eugusto;
+        font-size: 6rem;
+        font-weight: 500;
+        margin-top: 1.5vw;
+
+        @include tablet {
+          margin-top: 5vw;
         }
 
         @include tablet {
@@ -135,38 +168,13 @@ main {
         }
 
         @include mobile {
-          font-size: 2rem;
+          font-size: 5rem;
         }
       }
     }
     .img {
       height: 70vh;
       position: relative;
-
-      &:hover img {
-        opacity: 0.2;
-        z-index: 1;
-      }
-
-      &:hover p {
-        z-index: 2;
-        opacity: 1;
-      }
-
-      p {
-        position: absolute;
-        cursor: pointer;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-        color: $dark-purple;
-        width: 100%;
-        text-align: center;
-        @include font(3.5rem, $Eugusto, null, 1);
-        transition: 1.7s all ease-in-out;
-        opacity: 0;
-        }
 
       img {
         width: auto;
@@ -175,7 +183,7 @@ main {
         opacity: 1;
         z-index: 2;
         transition: 1.7s all ease-in-out;
-        border-radius: 10px;
+        border-radius: 20px;
 
         @include tablet {
           object-fit: cover;
@@ -190,28 +198,28 @@ main {
         }
       }
 
-      &:before {
-        content: "";
-        position: absolute;
-        bottom: -4vw;
-        right: -4vw;
-        width: 8vw;
-        z-index: 3;
-        background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
-        height: 8vw;
-        animation: turn 20s linear infinite;
-      }
+      // &:before {
+      //   content: "";
+      //   position: absolute;
+      //   bottom: -4vw;
+      //   right: -4vw;
+      //   width: 8vw;
+      //   z-index: 3;
+      //   background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
+      //   height: 8vw;
+      //   animation: turn 20s linear infinite;
+      // }
 
       @include tablet {
         width: 100%;
         height: fit-content;
 
-        &:before {
-          bottom: -12vw;
-          right: -12vw;
-          width: 24vw;
-          height: 24vw;
-        }
+        // &:before {
+        //   bottom: -12vw;
+        //   right: -12vw;
+        //   width: 24vw;
+        //   height: 24vw;
+        // }
       }
 
       @include mobile {
@@ -229,7 +237,7 @@ main {
     grid-column-gap: 0;
     grid-row-gap: 50px;
     width: 90%;
-    margin-top: 3vw;
+    margin-top: 1vw;
 
     @include tablet {
       width: 100%;
@@ -254,8 +262,8 @@ main {
     }
 
     p {
-      font-size: 2.5rem;
-      font-family: $Readex-Light;
+      font-size: 2rem;
+      font-family: $Readex-Regular;
     }
   }
 }

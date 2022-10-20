@@ -2,17 +2,25 @@
   <main>
     <div v-if="!loaded" class="loader_wrapper">
       <div class="loader"></div>
-      <p>Chargement</p>
+      <p>Loading...</p>
     </div>
     <div v-if="loaded">
-      <div class="wrapper">
+      <div
+        class="wrapper"
+        v-for="(section, indexSection) in chunkArray(projets, 6)"
+        :key="indexSection"
+      >
         <nuxt-link
-          v-for="(projet, index) in projets"
-          :key="index"
-          class="wrapper__card"
+          v-for="(projet, index) in section"
           :to="projet.name"
+          :key="index"
+          class="card"
+          :style="
+            index > 5
+              ? 'display: none;'
+              : 'background-image: url(' + projet.banner + ');'
+          "
         >
-          <img :src="projet.banner" />
         </nuxt-link>
       </div>
     </div>
@@ -24,7 +32,7 @@
 
 export default {
   head: {
-    titleTemplate: "Mes Projets - %s",
+    titleTemplate: "Projects - %s",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -32,7 +40,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Voici mes projet que j'ai réalisé, découvrez-en plus en visitant l'intégralité de mon portfolio !",
+          "Here are the projects I've done, discover more by visiting my entire portfolio!",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -52,112 +60,125 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.projets.push(doc.data());
-            this.loaded = true;
           });
+          this.loaded = true;
+          console.log(this.chunkArray(this.projets, 6));
         })
         .catch((error) => {
           console.error("Error getting documents: ", error);
         });
     },
+    chunkArray(myArray, chunk_size) {
+      var index = 0;
+      var arrayLength = myArray.length;
+      var tempArray = [];
+
+      for (index = 0; index < arrayLength; index += chunk_size) {
+        var myChunk = myArray.slice(index, index + chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+      }
+      return tempArray;
+    },
   },
-  beforeMount() {
+  mounted() {
     this.getProjet();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
+.loader_wrapper {
+  transform: translateY(-30vh);
+}
+
+
 main {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
+  padding: 0 6.4rem;
   align-items: center;
   justify-content: center;
 
-  @include tablet {
-    align-items: flex-start;
+  & > div {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
 
-  .wrapper {
-    width: 100%;
-    height: fit-content;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    padding: 0 10vw;
+  @include mobile {
+    padding: 0 3.9rem;
+  }
+}
 
-    @include tablet {
-      grid-template-columns: repeat(2, 1fr);
-      padding: 0;
-    }
+.wrapper {
+  width: 100%;
+  height: 100%;
+  @include flexbox(row, flex-start, center, 2vw);
+  padding-bottom: 2vw;
+  z-index: 1;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: calc(100% + 2*6.4rem);
+    height: 100%;
+    left: -6.4rem;
 
     @include mobile {
-      grid-template-columns: repeat(1, 1fr);
-      padding: 0;
+      display: none;
     }
 
-    &__card {
+  }
+
+  &:nth-of-type(odd):before {
+    background: url('~/assets/medias/line-4.svg') center/100% 100% no-repeat;
+  }
+
+    &:nth-of-type(even):before {
+    background: url('~/assets/medias/line-5.svg') center/100% 100% no-repeat;
+  }
+
+  @include mobile {
+    height: fit-content;
+    gap: 10vw;
+    flex-direction: column;
+    padding-bottom: 11vw;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.card {
+  transition: all 0.5s ease-in-out;
+  height: 70vh;
+  width: 15%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+
+  @include mobile {
+    height: 100%;
+    width: 100%;
+    height: 85vw;
+  }
+
+  &:hover {
+    width: 30%;
+
+    @include mobile {
+      height: 100%;
       width: 100%;
-      height: auto;
-      transition: 0.2s all ease-out;
-      position: relative;
-      background-color: $main-50;
-
-      img {
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-
-      &:hover {
-        transform: translate(10px, -10px);
-
-        &:hover:after {
-          transform: translate(-10px, 10px);
-          height: calc(100% + 10px);
-        }
-        &:hover:before {
-          transform: translate(0px, 20px);
-          width: calc(100% + 10px);
-        }
-      }
-
-      &:before {
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid $purple;
-        position: absolute;
-        content: "";
-        bottom: 10px;
-        right: 0;
-        width: 100%;
-        height: 0;
-        z-index: -1;
-        transform: translateY(10px);
-        transition: 0.2s all ease-out;
-      }
-
-      &:after {
-        border-left: 10px solid transparent;
-        border-right: 10px solid $purple;
-        border-top: 10px solid transparent;
-        position: absolute;
-        content: "";
-        bottom: 0;
-        right: calc(100% - 10px);
-        width: 0;
-        height: 100%;
-        transition: 0.2s all ease-out;
-        z-index: -1;
-      }
-
-      &:nth-child(odd):before {
-        border-top: 10px solid $yellow;
-      }
-      &:nth-child(odd):after {
-        border-right: 10px solid $yellow;
-      }
+      height: 85vw;
     }
   }
 }

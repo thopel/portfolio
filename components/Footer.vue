@@ -1,6 +1,8 @@
 <template>
   <footer>
-    <p @click="copyMail">tpelfrene@gmail.com<sup id="copied">copié !</sup></p>
+    <p class="mail" @click="copyMail">
+      {{mail}}<sup id="copied">copié !</sup>
+    </p>
     <div v-if="$route.name == 'pas-affiché'">
       // pas affiché pour le moment
       <p>Performances:</p>
@@ -23,11 +25,12 @@ export default {
       settings: {},
       step: 1,
       timeMsg: null,
+      mail: ""
     };
   },
   methods: {
     copyMail() {
-      this.copyToClipboard("tpelfrene@gmail.com");
+      this.copyToClipboard(this.mail);
       document.getElementById("copied").classList.add("copied");
       document.getElementById("copied").classList.remove("anim");
       this.getCopiedMessage();
@@ -44,50 +47,49 @@ export default {
     getCopiedMessage() {
       switch (this.step) {
         case 1:
-          document.getElementById("copied").innerText = "copié !";
+          document.getElementById("copied").innerText = "copied !";
           break;
 
         case 2:
-          document.getElementById("copied").innerText = "re copié !";
+          document.getElementById("copied").innerText = "recopied !";
           break;
 
         case 3:
-          document.getElementById("copied").innerText = "re re copié !";
+          document.getElementById("copied").innerText = "rerecopied !";
           break;
 
         case 4:
-          document.getElementById("copied").innerText =
-            "re re re copié !";
+          document.getElementById("copied").innerText = "rererecopié !";
           break;
 
         case 5:
           document.getElementById("copied").innerText =
-            "il serait temps de m'envoyer un mail";
+            "it's time to send me an email";
           break;
 
         case 6:
-          document.getElementById("copied").innerText = "SUPER COPIE !!";
+          document.getElementById("copied").innerText = "SUPER COPY !!";
           break;
 
         case 7:
-          document.getElementById("copied").innerText = "HYPER COPIE !!!";
+          document.getElementById("copied").innerText = "HYPER COPY !!!";
           document.getElementById("copied").classList.add("anim");
           break;
 
         case 8:
-          document.getElementById("copied").innerText = "MEGA COPIE !!!!";
+          document.getElementById("copied").innerText = "MEGA COPY !!!!";
           document.getElementById("copied").classList.add("anim");
           break;
 
         case 9:
           document.getElementById("copied").innerText =
-            "COPIE INTERGALACTIQUE !!!!";
+            "INTERGALACTIC COPY !!!!";
           document.getElementById("copied").classList.add("anim");
           break;
 
         default:
           this.step = 1;
-          document.getElementById("copied").innerText = "copié !";
+          document.getElementById("copied").innerText = "copied !";
           break;
       }
     },
@@ -125,6 +127,7 @@ export default {
   },
   beforeMount() {
     this.getSettings();
+    this.mail = 'tpelfrene@gmail.com'
   },
 };
 </script>
@@ -136,10 +139,11 @@ footer {
   position: relative;
   width: 100%;
   bottom: 0;
-  color: $main;
-  padding-bottom: 20px;
+  color: #F0F0F0;
+  padding-bottom: 35px;
   padding-top: 40px;
   opacity: 0;
+  transition: opacity .5s ease-in-out;
 
   @include tablet {
     align-items: flex-end;
@@ -155,7 +159,7 @@ footer {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    color: $main;
+    color: #F0F0F0;
     a,
     p {
       font-size: 1.5rem;
@@ -186,42 +190,74 @@ footer {
     cursor: pointer;
     height: fit-content;
 
+    &.mail {
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        background: url("~/assets/medias/copy.svg") center/cover no-repeat;
+        filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg) brightness(114%) contrast(88%);
+        width: 1.7rem;
+        height: 1.7rem;
+        right: -2.5rem;
+        top: 0.4rem;
+      }
+    }
+
     sup {
       font-size: 1.5rem;
       font-family: $Readex-Regular;
       letter-spacing: 0.2rem;
       position: absolute;
-      padding: 5px;
+      padding: 5px 10px;
       width: fit-content;
       white-space: nowrap;
-      color: $secondary;
-      background-color: $main;
+      color: #323232;
+      background-color: #F0F0F0;
       height: fit-content;
       margin-left: 5px;
       transition: 0.3s all ease-out;
-      transform: translateY(-10px) scaleX(0);
-      transform-origin: left center;
+      transform: translateY(-10px) scaleY(0);
+      transform-origin: center bottom;
+      top: -100%;
+      left: -0.3vw;
+      border-radius: 10px;
 
-      @include mobile{
-        top: -100%;
-        left: -1vw;
+      &:after {
+        content: "";
+        position: absolute;
+        height: 0;
+        width: 0;
+        border-top: 4px solid #F0F0F0;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        bottom: -4px;
+        left: 1vw;
+        @include mobile {
+          left: 5vw;
+        }
       }
 
       &.copied {
-        transform: translateY(-10px) scaleX(1);
+        transform: translateY(-10px) scaleY(1);
       }
       &.anim {
         animation: move 0.1s ease-out alternate-reverse infinite;
-        background-color: #e62121;
-        transform: translateY(-10px) scaleX(1) rotate(0deg);
+        background-color: #CB4D3A;
+        color: #F0F0F0;
+        transform: translateY(-10px) scaleY(1) rotate(0deg);
+
+        &:after {
+          border-top: 4px solid #CB4D3A;
+        }
       }
       @keyframes move {
         from {
-          transform: translateY(-10px) scaleX(1) rotate(0deg);
+          transform: translateY(-10px) scaleY(1) rotate(0deg);
           transform-origin: center;
         }
         to {
-          transform: translateY(-10px) scaleX(1) rotate(3deg);
+          transform: translateY(-10px) scaleY(1) rotate(3deg);
           transform-origin: center;
         }
       }

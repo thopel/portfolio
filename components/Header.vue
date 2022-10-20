@@ -1,9 +1,17 @@
 <template>
   <header>
-    <nuxt-link class="no-mobile" to="/">home</nuxt-link>
+    <!-- <nuxt-link class="no-mobile" to="/">home</nuxt-link>
     <nuxt-link class="no-mobile" to="/projets">projets</nuxt-link>
     <nuxt-link class="no-mobile" to="/logos">logotypes</nuxt-link>
-    <nuxt-link class="no-mobile" to="/a-propos">à propos</nuxt-link>
+    <nuxt-link class="no-mobile" to="/a-propos">à propos</nuxt-link> -->
+
+    <nuxt-link class="no-mobile" to="/"><span>home</span></nuxt-link>
+    <nuxt-link class="middle no-mobile" to="/projets"
+      ><span>projects</span></nuxt-link
+    >
+    <nuxt-link class="no-mobile" to="/a-propos"
+      ><span>about</span></nuxt-link
+    >
 
     <div id="menu-burger" @click="menuAppear">
       <span id="top"></span>
@@ -13,9 +21,8 @@
     <div id="content-burger">
       <div @click="menuAppear">
         <nuxt-link to="/">home</nuxt-link>
-        <nuxt-link to="/projets">projets</nuxt-link>
-        <nuxt-link to="/logos">logotypes</nuxt-link>
-        <nuxt-link to="/a-propos">à propos</nuxt-link>
+        <nuxt-link to="/projets">projects</nuxt-link>
+        <nuxt-link to="/a-propos">about</nuxt-link>
       </div>
     </div>
   </header>
@@ -65,59 +72,61 @@ header {
   display: flex;
   position: relative;
   width: 100vw;
-  height: 105px;
+  height: 151.2px;
+  min-height: 151.2px;
   justify-content: space-between;
   align-items: center;
   color: $main;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 5vw;
+  padding-top: 4vw;
   z-index: 10;
   opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  @include mobile {
+    height: 12vh;
+    min-height: 12vh;
+  }
 
   a {
-    font-size: 2rem;
-    font-family: $Readex-Regular;
+    overflow: hidden;
+    height: 3.5rem;
+    transition: all 0.5s ease-in-out;
+    opacity: 0.35;
+    font-size: 4rem;
+    font-family: $Readex-Bold;
     z-index: 1;
-    position: relative;
+    text-transform: uppercase;
     outline: none;
 
-    &:after {
-      content: "";
-      height: 2px;
-      background-color: $main;
-      width: 0;
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      transition: 0.3s ease-in-out;
-    }
-    &:hover:after {
-      width: 100%;
-    }
     &.nuxt-link-exact-active {
-      &:before {
-        transform: scale(1);
+      height: 4.1rem;
+      opacity: 1;
+
+      @include mobile {
+        height: 4rem;
       }
     }
 
+    &:hover {
+      height: 4.1rem;
+      opacity: 1;
+
+      @include mobile {
+        height: 5.4rem;
+      }
+    }
+
+    &.middle {
+      transform: translateX(3.5vw);
+    }
     &.no-mobile {
       @include mobile {
         display: none;
       }
     }
-
-    &:before {
-      content: "";
-      position: absolute;
-      bottom: 2px;
-      left: -2rem;
-      width: 2rem;
-      background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
-      height: 2rem;
-      transform: scale(0);
-      transition: transform 0.2s ease-in-out;
-    }
   }
+
   #menu-burger {
     position: absolute;
     right: 0px;
@@ -170,7 +179,7 @@ header {
     text-decoration: none;
     color: $main;
     text-transform: uppercase;
-    font-size: 3rem;
+    font-size: 5rem;
     font-family: $Readex-SemiBold;
     text-align: right;
     width: fit-content;
@@ -183,10 +192,10 @@ header {
         content: "";
         position: absolute;
         bottom: 2px;
-        left: -3.7rem;
-        width: 3rem;
+        left: -5.7rem;
+        width: 5rem;
         background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
-        height: 3rem;
+        height: 5rem;
         transition: transform 0.2s ease-in-out;
       }
     }

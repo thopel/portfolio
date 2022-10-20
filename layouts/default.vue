@@ -9,13 +9,14 @@
     />
     <Nuxt />
     <Footer
+      v-if="$route.name == 'index' || $route.name == 'a-propos'"
       v-gsap.to="{
         delay: 2.5,
         opacity: 1,
       }"
       :style="$route.name == 'index' ? 'position: fixed; bottom: 0;' : ''"
-      v-if="$route.name !== 'logos'"
     />
+    <Footer v-else style="display: none"></Footer>
   </div>
 </template>
 
@@ -35,19 +36,22 @@ export default {};
   box-sizing: border-box;
 }
 
-*::-webkit-scrollbar{
+*::-webkit-scrollbar {
   display: none;
 }
 
 .loader_wrapper {
   width: 100%;
+  position: relative;
+  transform: translateY(-20vh);
   @include flexbox(column, center, center);
 
   .loader {
     background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
     width: 15vw;
     height: 15vw;
-    animation: turn 5s linear infinite;
+    animation: turn 1.5s linear infinite;
+    opacity: 0.4;
 
     @include tablet {
       width: 30vw;
@@ -59,6 +63,7 @@ export default {};
     margin-top: 2vw;
     font-family: $Eugusto;
     font-size: 4rem;
+    opacity: 0.4;
   }
 }
 
@@ -81,16 +86,16 @@ export default {};
   min-height: 100vh;
 
   &.bg-corner {
-    background: url("~/assets/medias/noise-logotypes.webp") center / cover
+    background: #F0F0F0 center / cover
       no-repeat;
   }
 
   &.bg-base {
-    background: url("~/assets/medias/noise-base.webp") top center / cover
+    background: #F0F0F0 top center / cover
       no-repeat;
     @include mobile() {
-      background: url("~/assets/medias/noise-base.webp") top center / 260%
-        no-repeat;
+      background: #F0F0F0 top center / 260%
+      revert-layer;
     }
   }
 }
@@ -124,12 +129,21 @@ li {
   list-style: none;
 }
 
+.sticker {
+  position: absolute;
+  width: auto;
+  height: 8vw;
+  z-index: 9;
+
+  @include mobile {
+    height: 25vw;
+  }
+}
+
 header,
 nav,
-section,
 main,
-footer,
-article {
+footer {
   padding: 0 6.4rem;
 
   @include tablet {
