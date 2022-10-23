@@ -3,13 +3,13 @@
     <!-- <nuxt-link class="no-mobile" to="/">home</nuxt-link>
     <nuxt-link class="no-mobile" to="/projets">projets</nuxt-link>
     <nuxt-link class="no-mobile" to="/logos">logotypes</nuxt-link>
-    <nuxt-link class="no-mobile" to="/a-propos">à propos</nuxt-link> -->
+    <nuxt-link class="no-mobile" to="/about">à propos</nuxt-link> -->
 
     <nuxt-link class="no-mobile" to="/"><span>home</span></nuxt-link>
     <nuxt-link class="middle no-mobile" to="/projets"
       ><span>projects</span></nuxt-link
     >
-    <nuxt-link class="no-mobile" to="/a-propos"
+    <nuxt-link class="no-mobile" to="/about"
       ><span>about</span></nuxt-link
     >
 
@@ -22,7 +22,7 @@
       <div @click="menuAppear">
         <nuxt-link to="/">home</nuxt-link>
         <nuxt-link to="/projets">projects</nuxt-link>
-        <nuxt-link to="/a-propos">about</nuxt-link>
+        <nuxt-link to="/about">about</nuxt-link>
       </div>
     </div>
   </header>

@@ -8,8 +8,7 @@
         <h3 class="subtitle">Skills</h3>
         <ul class="row wrap">
           <li class="outil" v-for="(item, index) in techno" :key="index">
-            <img class="grid" :src="item.url" :alt="'logo ' + item.name" />
-            <p>{{ item.name }}</p>
+            <img :style="turnTechnos($event)" class="grid" :src="item.url" :alt="'logo ' + item.name" />
           </li>
         </ul>
       </div>
@@ -72,14 +71,31 @@ export default {
           console.error("Error getting documents: ", error);
         });
     },
-    // playSound() {
-    //   var audio = new Audio(this.sound);
-    //   audio.play();
-    // },
+    generateRandom(min, max) {
+      // find diff
+      let difference = max - min;
+
+      // generate random number
+      let rand = Math.random();
+
+      // multiply with difference
+      rand = Math.floor(rand * difference);
+
+      // add with min value
+      rand = rand + min;
+
+      return rand;
+    },
+    turnTechnos(e) {
+      var deg = this.generateRandom(-30, 30);
+      let x = this.generateRandom(-20, 20);
+      return "transform: rotate(" + deg + "deg) translate("+x+"px);";
+    }
   },
   beforeMount() {
     this.getProjet();
     this.getSettings();
+    this.turnTechnos();
   },
 };
 </script>
@@ -257,13 +273,8 @@ main {
     height: 100px;
 
     img.grid {
-      width: 80px;
+      width: 8.5vw;
       margin: 5px 0;
-    }
-
-    p {
-      font-size: 2rem;
-      font-family: $Readex-Regular;
     }
   }
 }
