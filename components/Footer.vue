@@ -1,9 +1,11 @@
 <template>
   <footer>
-    <a :href="this.settings.githubLink"><img src="~/assets/medias/github.png" alt="my github link"></a>
+    <a :href="this.settings.githubLink"
+      ><img src="~/assets/medias/github.png" alt="my github link"
+    /></a>
     <span></span>
     <p class="mail" @click="copyMail">
-      {{mail}}<sup id="copied">copié !</sup>
+      {{ mail }}<sup id="copied">copié !</sup>
     </p>
   </footer>
 </template>
@@ -15,7 +17,7 @@ export default {
       settings: {},
       step: 1,
       timeMsg: null,
-      mail: ""
+      mail: "",
     };
   },
   methods: {
@@ -117,7 +119,7 @@ export default {
   },
   beforeMount() {
     this.getSettings();
-    this.mail = 'tpelfrene@gmail.com'
+    this.mail = "hello@thomaspelfrene.com";
   },
 };
 </script>
@@ -131,16 +133,21 @@ footer {
   position: relative;
   width: 100%;
   bottom: 0;
-  color: #F0F0F0;
+  color: #f0f0f0;
   padding-bottom: 35px;
   padding-top: 40px;
   opacity: 0;
-  transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 
   img {
     width: 25px;
     height: 25px;
-    filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg) brightness(114%) contrast(88%);
+    filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg)
+      brightness(114%) contrast(88%);
+    @include mobile {
+      filter: invert(18%) sepia(3%) saturate(35%) hue-rotate(350deg)
+        brightness(95%) contrast(92%);
+    }
   }
 
   @include tablet {
@@ -149,15 +156,16 @@ footer {
   }
 
   @include mobile {
-    flex-direction: column;
     align-items: flex-start;
+    color: #323232;
+    padding-bottom: 20px;
   }
 
   div {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    color: #F0F0F0;
+    color: #f0f0f0;
     a,
     p {
       font-size: 1.5rem;
@@ -178,13 +186,16 @@ footer {
     font-family: $Readex-Regular;
     position: relative;
     cursor: pointer;
-    height: fit-content;
   }
 
   span {
     width: 2px;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
     height: 25px;
+
+    @include mobile {
+      background-color: #323232;
+    }
   }
 
   p {
@@ -200,59 +211,70 @@ footer {
         content: "";
         position: absolute;
         background: url("~/assets/medias/copy.svg") center/cover no-repeat;
-        filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg) brightness(114%) contrast(88%);
+        filter: invert(99%) sepia(2%) saturate(64%) hue-rotate(146deg)
+          brightness(114%) contrast(88%);
         width: 1.7rem;
         height: 1.7rem;
         right: -2.5rem;
         top: 0.4rem;
+        @include mobile {
+          filter: invert(0%) sepia(14%) saturate(4748%) hue-rotate(47deg)
+            brightness(120%) contrast(61%);
+        }
+      }
+    }
+  }
+
+  sup {
+    font-size: 1.5rem;
+    font-family: $Readex-Regular;
+    letter-spacing: 0.2rem;
+    position: absolute;
+    padding: 5px 10px;
+    width: fit-content;
+    white-space: nowrap;
+    color: #323232;
+    background-color: #f0f0f0;
+    height: fit-content;
+    margin-left: 5px;
+    transition: 0.3s all ease-out;
+    transform: translateY(-10px) scaleY(0);
+    transform-origin: center bottom;
+    top: -100%;
+    left: -0.3vw;
+    border-radius: 10px;
+
+    @include mobile {
+      color: #f0f0f0;
+      background-color: #323232;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      height: 0;
+      width: 0;
+      border-top: 4px solid #f0f0f0;
+      border-right: 4px solid transparent;
+      border-left: 4px solid transparent;
+      bottom: -4px;
+      left: 1vw;
+      @include mobile {
+        left: 5vw;
+        border-top: 4px solid #323232;
       }
     }
 
-    sup {
-      font-size: 1.5rem;
-      font-family: $Readex-Regular;
-      letter-spacing: 0.2rem;
-      position: absolute;
-      padding: 5px 10px;
-      width: fit-content;
-      white-space: nowrap;
-      color: #323232;
-      background-color: #F0F0F0;
-      height: fit-content;
-      margin-left: 5px;
-      transition: 0.3s all ease-out;
-      transform: translateY(-10px) scaleY(0);
-      transform-origin: center bottom;
-      top: -100%;
-      left: -0.3vw;
-      border-radius: 10px;
-
-      &:after {
-        content: "";
-        position: absolute;
-        height: 0;
-        width: 0;
-        border-top: 4px solid #F0F0F0;
-        border-right: 4px solid transparent;
-        border-left: 4px solid transparent;
-        bottom: -4px;
-        left: 1vw;
-        @include mobile {
-          left: 5vw;
-        }
-      }
-
-      &.copied {
-        transform: translateY(-10px) scaleY(1);
-      }
+    &.copied {
+      transform: translateY(-10px) scaleY(1);
       &.anim {
         animation: move 0.1s ease-out alternate-reverse infinite;
-        background-color: #CB4D3A;
-        color: #F0F0F0;
+        background-color: #cb4d3a;
+        color: #f0f0f0;
         transform: translateY(-10px) scaleY(1) rotate(0deg);
 
         &:after {
-          border-top: 4px solid #CB4D3A;
+          border-top: 4px solid #cb4d3a;
         }
       }
       @keyframes move {

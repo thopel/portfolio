@@ -1,9 +1,5 @@
 <template>
   <header>
-    <!-- <nuxt-link class="no-mobile" to="/">home</nuxt-link>
-    <nuxt-link class="no-mobile" to="/projets">projets</nuxt-link>
-    <nuxt-link class="no-mobile" to="/logos">logotypes</nuxt-link>
-    <nuxt-link class="no-mobile" to="/about">à propos</nuxt-link> -->
 
     <nuxt-link class="no-mobile" to="/"><span>home</span></nuxt-link>
     <nuxt-link class="middle no-mobile" to="/projets"
@@ -88,7 +84,7 @@ header {
     min-height: 12vh;
   }
 
-  a {
+  > a {
     overflow: hidden;
     height: 3.5rem;
     transition: all 0.5s ease-in-out;
@@ -177,7 +173,7 @@ header {
   }
   #content-burger a {
     text-decoration: none;
-    color: $main;
+    color: $main-50;
     text-transform: uppercase;
     font-size: 5rem;
     font-family: $Readex-SemiBold;
@@ -187,17 +183,7 @@ header {
     &.nuxt-link-exact-active {
       cursor: pointer;
       position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        bottom: 2px;
-        left: -5.7rem;
-        width: 5rem;
-        background: url("~/assets/medias/spirale.svg") center / cover no-repeat;
-        height: 5rem;
-        transition: transform 0.2s ease-in-out;
-      }
+      color: $main;
     }
   }
   @include mobile {

@@ -193,7 +193,7 @@ main {
 
       span {
         background-color: $main;
-        color: $secondary;
+        color: #F0F0F0;
         padding: 4px 12px;
         border-radius: 15px;
         margin-top: 10px
@@ -371,7 +371,7 @@ main {
     height: 10vw;
     padding-bottom: 3vw;
     @include flexbox(row, center, center);
-    color: #f0f0f0;
+    color: #F0F0F0;
     z-index: 9;
     font-family: $Eugusto;
     font-size: $fs-d-h3;

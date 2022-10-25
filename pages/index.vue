@@ -52,7 +52,7 @@
 <script>
 export default {
   head: {
-    title: "Thomas Pelfrene's Portfolio",
+    title: "Thomas Pelfrene",
     htmlAttrs: {
       lang: "fr",
     },
@@ -178,6 +178,7 @@ main {
 
     @include mobile {
       width: 300vw;
+      bottom: 0vh;
     }
   }
 
@@ -185,7 +186,7 @@ main {
     position: relative;
     transform: translateY(-7vw);
     @include mobile {
-      transform: translateY(0vw);
+      transform: translateY(-5vw);
     }
 
     .sticker-name {
@@ -241,7 +242,7 @@ main {
   @include mobile {
     font-size: 2rem;
     @include flexbox(column, space-between, center, 4vh);
-    margin-top: 6vh;
+    margin-top: 3vh;
     span {
       display: none;
     }

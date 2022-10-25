@@ -86,15 +86,15 @@ export default {};
   min-height: 100vh;
 
   &.bg-corner {
-    background: #e0e0e0 center / cover
+    background: #F0F0F0 center / cover
       no-repeat;
   }
 
   &.bg-base {
-    background: #e0e0e0 top center / cover
+    background: #F0F0F0 top center / cover
       no-repeat;
     @include mobile() {
-      background: #e0e0e0 top center / 260%
+      background: #F0F0F0 top center / 260%
       revert-layer;
     }
   }
