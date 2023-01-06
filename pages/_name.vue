@@ -390,10 +390,12 @@ main {
     }
 
     @include mobile {
-      height: 53vw;
-      width: 53vw;
-      padding-bottom: 8vw;
-      bottom: -27vw;
+      height: 80px;
+      width: 80px;
+      transform: translateX(0);
+      right: 18px;
+      bottom: 20px;
+      padding-bottom: 0;
     }
   }
 
@@ -411,7 +413,7 @@ main {
       // width: 20vw;
       object-fit: cover;
       object-position: right center;
-      margin-bottom: 3vw;
+      margin-bottom: 40px;
 
       @include mobile {
         margin-bottom: 0;
@@ -431,9 +433,11 @@ main {
       display: flex;
       margin-bottom: 0.5%;
       border-radius: 20px;
+      margin-bottom: 40px;
 
       @include mobile {
         width: 100% !important;
+        margin-bottom: 0;
       }
     }
   }

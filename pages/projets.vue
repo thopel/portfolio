@@ -21,6 +21,7 @@
               : 'background-image: url(' + projet.banner + ');'
           "
         >
+        <h2>{{String(projet.addDate.toDate().getFullYear()).slice(-2)}}</h2>
         </nuxt-link>
       </div>
     </div>
@@ -32,7 +33,7 @@
 
 export default {
   head: {
-    titleTemplate: "All projects - %s",
+    titleTemplate: "Projects - %s",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -60,8 +61,8 @@ export default {
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.projets.push(doc.data());
-            this.loaded = true;
           });
+          this.loaded = true;
         })
         .catch((error) => {
           console.error("Error getting documents: ", error);
@@ -80,7 +81,7 @@ export default {
       return tempArray;
     },
   },
-  mounted() {
+  created() {
     this.getProjet();
   },
 };
@@ -156,6 +157,24 @@ main {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+
+  h2 {
+    font-family: $Eugusto;
+    font-size: 120px;
+    transform: translateY(45px);
+    padding-top: 40px;
+    color: $main;
+    width: 30vw;
+    text-align: center ;
+    background: $secondary;
+    background: -moz-linear-gradient(180deg, rgba(240,240,240,0) 0%, $secondary 100%);
+    background: -webkit-linear-gradient(180deg, rgba(240,240,240,0) 0%, $secondary 100%);
+    background: linear-gradient(180deg, rgba(240,240,240,0) 0%, $secondary 100%);
+  }
 
   @include mobile {
     height: 100%;

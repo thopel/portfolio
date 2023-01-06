@@ -16,8 +16,8 @@
             delay: 0.4,
             yPercent: -100,
           }"
+          v-html="settings.title"
         >
-          {{ settings.title }}
         </h1>
       </div>
       <div class="mask">
@@ -192,10 +192,10 @@ main {
     .sticker-name {
       position: absolute;
       background: url("~/assets/medias/sticker-1.svg") center/cover no-repeat;
-      height: 7vw;
-      width: 7vw;
-      left: -5vw;
-      top: -3.5vw;
+      height: 10rem;
+      width: 10rem;
+      left: -65px;
+      top: -45px;
       transform: rotate(45deg) scale(1.3);
       z-index: 8;
       display: none;
@@ -214,7 +214,7 @@ main {
   }
 
   h1 {
-    font-size: 13rem;
+    font-size: 9rem;
     font-family: $Eugusto;
     letter-spacing: 0.3rem;
     font-weight: lighter;

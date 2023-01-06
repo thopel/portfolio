@@ -112,10 +112,6 @@ header {
         height: 5.4rem;
       }
     }
-
-    &.middle {
-      transform: translateX(3.5vw);
-    }
     &.no-mobile {
       @include mobile {
         display: none;
