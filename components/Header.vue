@@ -1,23 +1,19 @@
 <template>
   <header>
-
-    <nuxt-link class="no-mobile" to="/"><span>home</span></nuxt-link>
-    <nuxt-link class="middle no-mobile" to="/projets"
-      ><span>projects</span></nuxt-link
-    >
-    <nuxt-link class="no-mobile" to="/about"
-      ><span>about</span></nuxt-link
-    >
-
-    <div id="menu-burger" @click="menuAppear">
-      <span id="top"></span>
-      <span id="center"></span>
-      <span id="bot"></span>
+    <div @click="menuAppear" v-if="this.$route.name == 'about' || this.$route.name == 'index' || this.$route.name == 'projects'" :class="'menu-desktop ' + this.$route.name">
+      <nuxt-link to="/">home</nuxt-link>
+      <nuxt-link to="/projects">projects</nuxt-link>
+      <nuxt-link to="/about">about</nuxt-link>
     </div>
+
     <div id="content-burger">
       <div @click="menuAppear">
+        <div class="close">
+          <span></span>
+          <span></span>
+        </div>
         <nuxt-link to="/">home</nuxt-link>
-        <nuxt-link to="/projets">projects</nuxt-link>
+        <nuxt-link to="/projects">projects</nuxt-link>
         <nuxt-link to="/about">about</nuxt-link>
       </div>
     </div>
@@ -66,77 +62,67 @@ export default {
 <style lang="scss" scoped>
 header {
   display: flex;
-  position: relative;
   width: 100vw;
-  height: 151.2px;
-  min-height: 151.2px;
-  justify-content: space-between;
   align-items: center;
-  color: $main;
-  padding-bottom: 5vw;
-  padding-top: 4vw;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-
-  @include mobile {
-    height: 12vh;
-    min-height: 12vh;
-  }
-
-  > a {
-    overflow: hidden;
-    height: 3.5rem;
-    transition: all 0.5s ease-in-out;
-    opacity: 0.35;
-    font-size: 4rem;
-    font-family: $Readex-Bold;
-    z-index: 1;
-    text-transform: uppercase;
-    outline: none;
-
-    &.nuxt-link-exact-active {
-      height: 4.1rem;
-      opacity: 1;
-
-      @include mobile {
-        height: 4rem;
-      }
+  justify-content: center;
+  z-index: 999;
+  .menu-desktop {
+    display: flex;
+    position: fixed;
+    top: 20px;
+    align-items: center;
+    justify-content: space-between;
+    width: 40vw;
+    background-color: $main;
+    padding: 10px;
+    border-radius: 30px;
+    @include tablet {
+      width: 160px;
     }
 
-    &:hover {
-      height: 4.1rem;
-      opacity: 1;
-
-      @include mobile {
-        height: 5.4rem;
-      }
+    &.index:before {
+      left: 10px;
+      transform: none;
     }
-    &.no-mobile {
-      @include mobile {
+
+    &.about:before {
+      left: 100%;
+      transform: translateX(calc(-100% - 10px));
+    }
+
+    & a {
+      font-family: $Readex-Bold;
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      color: $secondary;
+      mix-blend-mode: difference;
+      z-index: 3;
+      width: 140px;
+      text-align: center;
+
+      @include tablet {
         display: none;
+        &.nuxt-link-exact-active {
+          display: block;
+        }
       }
     }
-  }
 
-  #menu-burger {
-    position: absolute;
-    right: 0px;
-    padding-right: 1.8rem;
-    top: 26px;
-    display: none;
-    flex-direction: column;
-    height: fit-content;
-    align-items: flex-end;
-    gap: 7px;
-    z-index: 999;
-    width: fit-content;
-
-    span {
-      width: 35px;
-      border-radius: 10px;
-      height: 4px;
-      background-color: $main;
+    &:before {
+      position: absolute;
+      content: "";
+      width: 140px;
+      height: calc(100% - 20px);
+      background-color: $secondary;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10px;
+      border-radius: 60px;
+      z-index: 2;
+      transition: 0.7s all ease-in-out;
+      @include tablet {
+        transition: none;
+    }
     }
   }
 
@@ -152,6 +138,35 @@ header {
     z-index: 990;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
+
+    & .close {
+      background-color: $secondary;
+      border: 10px solid $main;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 50px;
+      width: 50px;
+      border-radius: 40px;
+
+      & span {
+        width: 20px;
+        border-radius: 20px;
+        height: 4px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: $main;
+
+        &:first-child {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+        &:last-child {
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
+      }
+    }
   }
   #content-burger > div {
     width: 100%;
@@ -160,7 +175,6 @@ header {
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-end;
-    padding-right: 20px;
     padding-top: 40px;
 
     &:first-child {
@@ -173,8 +187,8 @@ header {
     text-transform: uppercase;
     font-size: 5rem;
     font-family: $Readex-SemiBold;
-    text-align: right;
-    width: fit-content;
+    text-align: center;
+    width: 100%;
 
     &.nuxt-link-exact-active {
       cursor: pointer;
@@ -186,7 +200,6 @@ header {
     #menu-burger,
     #content-burger {
       display: flex !important;
-      // top: 55px !important;
     }
   }
 }

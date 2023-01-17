@@ -81,7 +81,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  padding: 50px 6.4rem 0 6.4rem;
+  padding: 22vh 6.4rem 0 6.4rem;
   width: 100%;
   height: fit-content;
 
@@ -90,7 +90,7 @@ main {
     height: fit-content;
   }
   @include mobile {
-    padding: 0 1.8rem 0 1.8rem;
+    padding: 12vh 1.8rem 0 1.8rem;
   }
 
   h3 {

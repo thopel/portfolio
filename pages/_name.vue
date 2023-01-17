@@ -46,7 +46,7 @@
         <img
           v-for="(img, index) in projet.images"
           :key="index"
-          class="picture"
+          class="picture skeleton"
           :style="'width:' + (img.width - 0.25) + '%'"
           :src="img.url"
           :alt="'image de ' + projet.name"
@@ -140,7 +140,7 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 3.472vw;
+  padding-top: 7vw;
   width: 100%;
   padding-bottom: 8vw;
   height: fit-content;

@@ -221,6 +221,7 @@ main {
     position: relative;
     white-space: nowrap;
     transform: translateY(100%);
+    
 
     @include tablet {
       font-size: 7rem;
@@ -228,6 +229,9 @@ main {
 
     @include mobile {
       font-size: 4rem;
+      white-space: normal;
+      max-width: 85vw;
+      text-align: center;
     }
   }
 }

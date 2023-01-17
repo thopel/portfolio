@@ -1,5 +1,5 @@
 <template>
-  <div id="default" :class="$route.name == 'logos' ? 'bg-corner' : 'bg-base'">
+  <div id="default">
     <Header
       v-gsap.to="{
         delay: 2.5,
@@ -84,20 +84,8 @@ export default {};
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
+  background: url(~/assets/medias/bg-paper.jpg) center/cover no-repeat;
 
-  &.bg-corner {
-    background: #F0F0F0 center / cover
-      no-repeat;
-  }
-
-  &.bg-base {
-    background: #F0F0F0 top center / cover
-      no-repeat;
-    @include mobile() {
-      background: #F0F0F0 top center / 260%
-      revert-layer;
-    }
-  }
 }
 
 html {
@@ -137,6 +125,19 @@ li {
 
   @include mobile {
     height: 25vw;
+  }
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
   }
 }
 
