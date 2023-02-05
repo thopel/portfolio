@@ -131,7 +131,7 @@ header {
     width: 100vw;
     backdrop-filter: blur(8px);
     background: $secondary-50;
-    position: absolute;
+    position: fixed;
     display: none;
     top: 0;
     right: -100vw;

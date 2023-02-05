@@ -103,7 +103,7 @@ main {
 
   .line {
     position: absolute;
-    top: 200px;
+    top: 220px;
     right: 0;
     width: 100vw;
 

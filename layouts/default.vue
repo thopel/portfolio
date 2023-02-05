@@ -84,8 +84,7 @@ export default {};
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  background: url(~/assets/medias/bg-paper.jpg) center/cover no-repeat;
-
+  background: url('~/assets/medias/bg-paper.webp') center/cover no-repeat;
 }
 
 html {
@@ -104,6 +103,7 @@ body {
   height: 100vh;
   width: 100vw;
   position: relative;
+  overflow-y: scroll !important;
 }
 
 a {

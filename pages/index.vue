@@ -214,7 +214,7 @@ main {
   }
 
   h1 {
-    font-size: 9rem;
+    font-size: 8rem;
     font-family: $Eugusto;
     letter-spacing: 0.3rem;
     font-weight: lighter;
