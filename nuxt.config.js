@@ -1,5 +1,10 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:1337', // process.env.baseUrl to call it
+    baseUrlAPI: process.env.BASE_URL || 'http://localhost:1337/api' // process.env.baseUrlAPI to call it
+  },
+
   head: {
     title: "Portfolio Thomas Pelfrene",
     htmlAttrs: {
@@ -48,27 +53,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    [
-      // '@nuxtjs/sitemap',
-      "@nuxtjs/firebase",
-      {
-        config: {
-          apiKey: "AIzaSyBiP8Zm5f4CZ_4sgUPL5Rb4qW5L0yE4MgA",
-          authDomain: "portfolio-d0ca8.firebaseapp.com",
-          projectId: "portfolio-d0ca8",
-          storageBucket: "portfolio-d0ca8.appspot.com",
-          messagingSenderId: "443553158329",
-          appId: "1:443553158329:web:76247e484bf4fd18823768",
-          measurementId: "G-DRKS78C3Z6",
-        },
-        services: {
-          firestore: true,
-          analytics: true,
-          performance: true,
-          database: true,
-        },
-      },
-    ],
+    '@nuxtjs/axios'
   ],
 
   // sitemap: {

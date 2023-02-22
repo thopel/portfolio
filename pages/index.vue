@@ -1,7 +1,7 @@
 <template>
   <main @click="addSticker($event)" id="zone" :mobileHeight="mobileHeight">
     <img class="lines" src="~/assets/medias/lines.svg" alt="" />
-    <div v-if="settingsLoaded" class="wrapper">
+    <div v-if="dataPageLoaded" class="wrapper">
       <div
         class="sticker-name"
         v-gsap.to="{
@@ -16,7 +16,7 @@
             delay: 0.4,
             yPercent: -100,
           }"
-          v-html="settings.title"
+          v-html="dataPage.Title"
         >
         </h1>
       </div>
@@ -32,15 +32,15 @@
             <a
               title="website of the school I attend"
               rel="noopener noreferer nofollow"
-              :href="settings.schoolLink"
-              >{{ settings.schoolName }}</a
+              :href="dataPage.SchoolLink"
+              >{{ dataPage.SchoolName }}</a
             >
             <span>~</span>
             <a
               title="website of the company where I work"
               rel="noopener noreferer nofollow"
-              :href="settings.companyLink"
-              >{{ settings.companyName }}</a
+              :href="dataPage.CompanyLink"
+              >{{ dataPage.CompanyName }}</a
             >
           </div>
         </div>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+
 export default {
   head: {
     title: "Thomas Pelfrene",
@@ -72,27 +73,24 @@ export default {
 
   data() {
     return {
-      settings: {},
-      settingsLoaded: false,
+      dataPage: {},
+      dataPageLoaded: false,
       indexSticker: 0,
       stickers: [],
     };
   },
   methods: {
-    getSettings() {
-      this.$fire.firestore
-        .collection("settings")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.settings = doc.data();
-            this.stickers = doc.data().stickers;
-          });
-          this.settingsLoaded = true;
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getDataPage() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/home')
+      this.dataPage = data.data.attributes;
+      this.dataPageLoaded = true;
+    },
+    async getStickers() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/stickers?populate=Image')
+      data.data.forEach(sticker => {
+        this.stickers.push(process.env.baseUrl + sticker.attributes.Image.data.attributes.url);
+      });
+      console.log(this.stickers)
     },
     mobileHeight() {
       let vh = window.innerHeight * 0.01;
@@ -141,7 +139,8 @@ export default {
     this.mobileHeight();
   },
   beforeMount() {
-    this.getSettings();
+    this.getDataPage();
+    this.getStickers();
   },
 };
 </script>

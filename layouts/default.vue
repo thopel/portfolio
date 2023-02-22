@@ -84,7 +84,7 @@ export default {};
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  background: url('~/assets/medias/bg-paper.webp') center/cover no-repeat;
+  background-color: #f0f0f0;
 }
 
 html {

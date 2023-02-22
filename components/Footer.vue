@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <a :href="this.settings.githubLink"
+    <a :href="this.dataPage.GitHub"
       ><img src="~/assets/medias/github.png" alt="my github link"
     /></a>
     <span></span>
@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      settings: {},
+      dataPage: {},
       step: 1,
       timeMsg: null,
       mail: "",
@@ -103,23 +103,16 @@ export default {
         });
       }
     },
-    getSettings() {
-      this.$fire.firestore
-        .collection("settings")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.settings = doc.data();
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getDataPage() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/home')
+      this.dataPage = data.data.attributes;
+      this.mail = data.data.attributes.Email;
+      this.dataPageLoaded = true;
+      console.log(data.data.attributes);
     },
   },
   beforeMount() {
-    this.getSettings();
-    this.mail = "hello@thomaspelfrene.com";
+    this.getDataPage();
   },
 };
 </script>

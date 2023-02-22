@@ -1,11 +1,11 @@
 <template>
   <main>
     <nuxt-link class="back" to="projets">Back</nuxt-link>
-    <div v-if="!loaded || !technoLoaded" class="loader_wrapper">
+    <div v-if="!loaded || !technosLoaded" class="loader_wrapper">
       <div class="loader"></div>
       <p>Loading...</p>
     </div>
-    <div v-if="loaded && technoLoaded">
+    <div v-if="loaded && technosLoaded">
       <div class="top">
         <div class="infos">
           <h1>{{ projet.name }}</h1>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <img
-          v-for="(img, index) in projet.images"
+          v-for="(img, index) in project.images"
           :key="index"
           class="picture skeleton"
           :style="'width:' + (img.width - 0.25) + '%'"
@@ -74,11 +74,10 @@ export default {
   },
   data() {
     return {
-      projet: {},
-      techno: [],
+      projects: {},
+      technos: [],
       loaded: false,
-      technoLoaded: false,
-      indexSlider: 0,
+      technosLoaded: false,
     };
   },
   methods: {
@@ -89,46 +88,22 @@ export default {
         fleche.remove("move");
       }, 1000);
     },
-    getProjet() {
-      // console.log(this.$route.params.name)
-      this.$fire.firestore
-        .collection("projets")
-        .where("name", "==", this.$route.params.name)
-        .limit(1)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.projet = doc.data();
-            this.loaded = true;
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getProjects() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/projects?populate=*')
+      this.projects = data.data;
+      this.loaded = true;
+      this.baseUrl = process.env.baseUrl;
     },
-    getTechno() {
-      this.$fire.firestore
-        .collection("technologies")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.techno.push({
-              id: doc.id,
-              name: doc.data().name,
-              url: doc.data().url,
-            });
-          });
-          // console.log(this.techno)
-          this.technoLoaded = true;
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getTechnos() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/technos?populate=Image')
+      this.technos = data.data;
+      this.technosLoaded = true;
+      this.baseUrl = process.env.baseUrl;
     },
   },
   created() {
-    this.getProjet();
-    this.getTechno();
+    this.getProjects();
+    this.getTechnos();
   },
 };
 </script>

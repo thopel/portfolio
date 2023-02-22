@@ -8,21 +8,21 @@
       <div v-if="loaded">
         <div
           class="wrapper"
-          v-for="(section, indexSection) in chunkArray(projets, 6)"
+          v-for="(section, indexSection) in chunkArray(projects, 6)"
           :key="indexSection"
         >
           <nuxt-link
           v-for="(projet, index) in section"
-            :to="'projects/'+projet.name"
+            :to="'projects/'+projet.attributes.Title"
             :key="index"
             class="card"
             :style="
               index > 5
                 ? 'display: none;'
-                : 'background-image: url(' + projet.banner + ');'
+                : 'background-image: url(' + baseUrl+projet.attributes.Thumbnail.data.attributes.formats.medium.url + ');'
             "
           >
-          <h2>{{String(projet.addDate.toDate().getFullYear()).slice(-2)}}</h2>
+           <h2>{{String(new Date(projet.attributes.Date).getFullYear()).slice(-2)}}</h2> <!--.getFullYear().slice(-2) -->
           </nuxt-link>
         </div>
       </div>
@@ -49,26 +49,18 @@
     },
     data() {
       return {
-        projets: [],
+        projects: [],
         loaded: false,
+        baseUrl: ""
       };
     },
     methods: {
-      getProjet() {
-        this.$fire.firestore
-          .collection("projets")
-          .orderBy("addDate", "desc")
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              this.projets.push(doc.data());
-            });
-            this.loaded = true;
-          })
-          .catch((error) => {
-            console.error("Error getting documents: ", error);
-          });
-      },
+      async getProjects() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/projects?populate=*')
+      this.projects = data.data;
+      this.loaded = true;
+      this.baseUrl = process.env.baseUrl;
+    },
       chunkArray(myArray, chunk_size) {
         var index = 0;
         var arrayLength = myArray.length;
@@ -83,7 +75,7 @@
       },
     },
     created() {
-      this.getProjet();
+      this.getProjects();
     },
   };
   </script>

@@ -4,11 +4,11 @@
     <div class="row">
       <div class="description">
         <h2 class="subtitle">About me</h2>
-        <p v-html="settings.description"></p>
+        <p>{{dataPage.Informations}}</p>
         <h3 class="subtitle">Skills</h3>
         <ul class="row wrap">
-          <li class="outil" v-for="(item, index) in techno" :key="index">
-            <img class="grid" :src="item.url" :alt="'logo ' + item.name" />
+          <li class="outil" v-for="(item, index) in technos" :key="index">
+            <img class="grid" :src="baseUrl+item.attributes.Image.data.attributes.url" :alt="'logo ' + item.attributes.Title" />
           </li>
         </ul>
       </div>
@@ -38,43 +38,26 @@ export default {
   },
   data() {
     return {
-      techno: [],
-      settings: {},
-      // sound,
+      technos: [],
+      dataPage: {},
+      baseUrl: ""
     };
   },
   methods: {
-    getProjet() {
-      this.$fire.firestore
-        .collection("technologies")
-        .orderBy("order", "asc")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.techno.push(doc.data());
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getDataPage() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/about')
+      this.dataPage = data.data.attributes;
     },
-    getSettings() {
-      this.$fire.firestore
-        .collection("settings")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.settings = doc.data();
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting documents: ", error);
-        });
+    async getTechnos() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/technos?populate=Image')
+      this.technos = data.data;
+      this.baseUrl = process.env.baseUrl;
     },
   },
   beforeMount() {
-    this.getProjet();
-    this.getSettings();
+    this.getDataPage();
+    this.getTechnos();
+
   },
 };
 </script>
@@ -103,7 +86,7 @@ main {
 
   .line {
     position: absolute;
-    top: 220px;
+    top: 225px;
     right: 0;
     width: 100vw;
 
@@ -140,7 +123,7 @@ main {
         font-size: 2rem;
         font-family: $Readex-Regular;
         overflow: scroll;
-        max-width: 60%;
+        max-width: 55%;
 
         @include tablet {
           max-width: 100%;
