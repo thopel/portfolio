@@ -13,7 +13,7 @@
         >
           <nuxt-link
           v-for="(projet, index) in section"
-            :to="'projects/'+projet.attributes.Title"
+            :to="'projects/'+projet.attributes.slug"
             :key="index"
             class="card"
             :style="

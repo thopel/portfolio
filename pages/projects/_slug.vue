@@ -1,26 +1,26 @@
 <template>
   <main>
     <nuxt-link class="back" to="projets">Back</nuxt-link>
-    <div v-if="!loaded || !technosLoaded" class="loader_wrapper">
+    <div v-if="!loaded" class="loader_wrapper">
       <div class="loader"></div>
       <p>Loading...</p>
     </div>
-    <div v-if="loaded && technosLoaded">
+    <div v-if="loaded">
       <div class="top">
         <div class="infos">
-          <h1>{{ projet.name }}</h1>
+          <h1>{{ project.Title }}</h1>
           <div class="tech">
-              <span  v-for="(app, index) in projet.techno"
-            :key="index">{{ techno.find((elem) => elem.id == projet.techno[index]).name }}</span>
+              <span  v-for="(app, index) in project.Technos.data"
+            :key="index">{{ app.attributes.Title }}</span>
           </div>
-          <h3>{{ projet.annee }} ~ {{ projet.type }}</h3>
+          <h3>{{ new Date(project.Date).getFullYear() }} ~ {{ project.Type }}</h3>
           <a
-            :title="projet.name"
+            :title="project.Title"
             rel="noopener noreferer nofollow"
             target="_blank"
-            v-if="projet.lien != ''"
+            v-if="project.Link != ''"
             class="link"
-            :href="projet.lien"
+            :href="project.Link"
             >have a look at it</a
           >
         </div>
@@ -29,27 +29,26 @@
       <section class="wrapper">
         <div class="descr-wrapper">
           <h2 class="subtitle">Informations</h2>
-          <p class="descr" v-html="projet.description"></p>
-          <div v-if="projet.collab.length > 0" class="collab">
+          <p class="descr">{{project.Informations}}</p>
+          <div v-if="project.Collaborators.data.length > 0" class="collab">
             <p>collaborator(s):</p>
             <a
-              :title="'profil linkedIn de ' + pers.name"
+              :title="'profil linkedIn de ' + collab.name"
               rel="noopener noreferer nofollow"
-              v-for="(pers, index) in projet.collab"
+              v-for="(collab, index) in project.Collaborators.data"
               :key="index"
               target="_blank"
-              :href="'https://www.linkedin.com/in/' + pers.linkedin"
-              >{{ pers.name }}</a
+              :href="collab.attributes.Link"
+              >{{ collab.attributes.Name }}</a
             >
           </div>
         </div>
         <img
-          v-for="(img, index) in project.images"
+          v-for="(img, index) in project.Images.data"
           :key="index"
           class="picture skeleton"
-          :style="'width:' + (img.width - 0.25) + '%'"
-          :src="img.url"
-          :alt="'image de ' + projet.name"
+          :src="baseUrl+img.attributes.url"
+          :alt="'image de ' + project.Title"
         />
       </section>
     </div>
@@ -74,36 +73,21 @@ export default {
   },
   data() {
     return {
-      projects: {},
-      technos: [],
+      project: {},
       loaded: false,
-      technosLoaded: false,
+      baseUrl: ''
     };
   },
   methods: {
-    addMove() {
-      const fleche = document.getElementById("fleche").classList;
-      fleche.add("move");
-      setTimeout(() => {
-        fleche.remove("move");
-      }, 1000);
-    },
-    async getProjects() {
-      const data = await this.$axios.$get(process.env.baseUrlAPI+'/projects?populate=*')
-      this.projects = data.data;
+    async getProject() {
+      const data = await this.$axios.$get(process.env.baseUrlAPI+'/projects?filters[slug][$eq]='+this.$route.params.slug+'&populate=*')
+      this.project = data.data[0].attributes;
       this.loaded = true;
-      this.baseUrl = process.env.baseUrl;
-    },
-    async getTechnos() {
-      const data = await this.$axios.$get(process.env.baseUrlAPI+'/technos?populate=Image')
-      this.technos = data.data;
-      this.technosLoaded = true;
       this.baseUrl = process.env.baseUrl;
     },
   },
   created() {
-    this.getProjects();
-    this.getTechnos();
+    this.getProject();
   },
 };
 </script>
@@ -231,10 +215,6 @@ main {
       position: relative;
       line-height: 4rem;
 
-      &:hover:after {
-        transform: rotate(360deg);
-      }
-
       &:not(:first-of-type) {
         margin-left: 28px;
       }
@@ -242,12 +222,13 @@ main {
       &:after {
         position: absolute;
         content: "";
-        left: 100%;
-        top: 0rem;
-        height: 1.8rem;
-        width: 1.8rem;
-        background: url("~/assets/medias/linkedin.svg") center/cover no-repeat;
-        transition: transform 0.7s ease-in-out;
+        left: 102%;
+        top: 50%;
+        height: 1.6rem;
+        width: 1.6rem;
+        transform: translateY(-30%);
+        background: url("~/assets/medias/link-icon.svg") center/cover no-repeat;
+        filter: invert(18%) sepia(0%) saturate(44%) hue-rotate(126deg) brightness(95%) contrast(83%);
       }
     }
   }
@@ -409,6 +390,14 @@ main {
       margin-bottom: 0.5%;
       border-radius: 20px;
       margin-bottom: 40px;
+      width: 31.7%;
+
+    &:nth-of-type(1) {
+      width: 40%;
+    }
+    &:nth-of-type(2) {
+      width: 100%;
+    }
 
       @include mobile {
         width: 100% !important;
