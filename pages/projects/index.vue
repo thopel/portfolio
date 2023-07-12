@@ -190,7 +190,7 @@
     }
   
     &:hover {
-      width: 30%;
+      width: 25vw;
   
       @include mobile {
         height: 100%;

@@ -140,7 +140,10 @@ main {
         font-size: 2rem;
         font-family: $Readex-Regular;
         overflow: scroll;
-        max-width: 60%;
+        max-width: 45%;
+        text-align: justify;
+        margin-top: 3vw;
+
 
         @include tablet {
           max-width: 100%;

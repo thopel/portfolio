@@ -1,6 +1,6 @@
 <template>
   <main>
-    <nuxt-link class="back" to="projets">Back</nuxt-link>
+    <nuxt-link class="back" :to="this.$router.back()">Back</nuxt-link>
     <div v-if="!loaded || !technoLoaded" class="loader_wrapper">
       <div class="loader"></div>
       <p>Loading...</p>
@@ -28,7 +28,7 @@
 
       <section class="wrapper">
         <div class="descr-wrapper">
-          <h2 class="subtitle">Informations</h2>
+          <h2 class="subtitle">Information</h2>
           <p class="descr" v-html="projet.description"></p>
           <div v-if="projet.collab.length > 0" class="collab">
             <p>collaborator(s):</p>
